@@ -12,19 +12,21 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-Puppet::Functions.create_function('virtual_server_create') do
-    dispatch :virtual_sever_create do
-        param 'String', :ip_addr
-        param 'String', :name
-        param 'String', :host
-        param 'Integer', :port
-        param 'String', :protocol
-        param 'String', :username
-        param 'String', :password
-    end
+require 'axapi_http'
 
+Puppet::Functions.create_function('virtual_server_create') do
     def virtual_server_create(**kwargs)
        client = A10Client::ACOSClient(kwargs['host'], kwargs['port'], kwargs['protocol'],
-                                      kwargs['username'], kwargs['password']) 
+                                      kwargs['username'], kwargs['password'])
+
+       kwargs.each do |k, v|
+           if not v 
+               kwargs.delete(k)
+           end
+       end
+       params = { "virtual-server": kwargs }
+
+       url = "/axapi/v3/slb/virtual-server/"
+       client.create(url, params: params)
     end
 end
