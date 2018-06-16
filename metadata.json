@@ -1,0 +1,14 @@
+{
+  "name": "a10-puppet",
+  "version": "0.1.0",
+  "author": "A10 Networks",
+  "summary": "Support for puppet",
+  "license": "Apache 2.0",
+  "source": "https://github.com/a10networks/a10-puppet",
+  "project_page": "https://github.com/a10networks/a10-puppet",
+  "issues_url": "https://github.com/a10networks/a10-puppet/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
